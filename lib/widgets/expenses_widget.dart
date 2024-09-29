@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kharcha_app/blocs/expense_list/expense_list_bloc.dart';
-
 import 'expense_tile_widget.dart';
 import 'loading_widget.dart';
 
@@ -17,8 +16,7 @@ class ExpensesWidget extends StatelessWidget {
         }
 
         final expenses = state.filteredExpenses.toList();
-
-        if (state.status == ExpenseListStatus.success && expenses.isEmpty) {
+        if (expenses.isEmpty) {
           return const EmptyListWidget();
         }
 
@@ -52,7 +50,7 @@ class EmptyListWidget extends StatelessWidget {
           const Icon(Icons.search),
           const SizedBox(height: 10),
           Text(
-            'Nothing see here',
+            'Nothing to see here',
             textAlign: TextAlign.center,
             style: Theme.of(context).textTheme.bodyLarge,
           ),

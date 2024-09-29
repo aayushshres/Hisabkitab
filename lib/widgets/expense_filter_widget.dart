@@ -11,7 +11,7 @@ class ExpenseFilterWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     const categories = Category.values;
 
-    final activeFiler = context.select(
+    final activeFilter = context.select(
       (ExpenseListBloc bloc) => bloc.state.filter,
     );
 
@@ -26,7 +26,7 @@ class ExpenseFilterWidget extends StatelessWidget {
 
           return ChoiceChip(
             label: Text(category.toName),
-            selected: activeFiler == category,
+            selected: activeFilter == category,
             onSelected: (_) => context
                 .read<ExpenseListBloc>()
                 .add(ExpenseListCategoryFilterChanged(category)),

@@ -26,16 +26,26 @@ class ExpenseListBloc extends Bloc<ExpenseListEvent, ExpenseListState> {
     emit(state.copyWith(status: () => ExpenseListStatus.loading));
 
     final stream = _repository.getAllExpenses();
-
     await emit.forEach<List<Expense?>>(
       stream,
-      onData: (expenses) => state.copyWith(
-        status: () => ExpenseListStatus.success,
-        expenses: () => expenses,
-        totalExpenses: () => expenses
-            .map((currentExpense) => currentExpense?.amount)
-            .fold(0.0, (a, b) => a + b!),
-      ),
+      onData: (expenses) {
+        if (expenses.isEmpty) {
+          return state.copyWith(
+            status: () => ExpenseListStatus.success,
+            expenses: () => [],
+            totalExpenses: () => 0.0,
+          );
+        }
+        // Sort expenses by date in descending order (most recent first)
+        expenses.sort((a, b) => b!.date.compareTo(a!.date));
+        return state.copyWith(
+          status: () => ExpenseListStatus.success,
+          expenses: () => expenses,
+          totalExpenses: () => expenses
+              .map((currentExpense) => currentExpense?.amount)
+              .fold(0.0, (a, b) => a + b!),
+        );
+      },
       onError: (_, __) => state.copyWith(
         status: () => ExpenseListStatus.failure,
       ),
