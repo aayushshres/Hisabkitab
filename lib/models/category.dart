@@ -4,7 +4,6 @@ enum Category {
   all,
   grocery,
   food,
-  work,
   entertainment,
   traveling,
   other;
@@ -15,13 +14,12 @@ enum Category {
 
 extension CategoryX on Category {
   String get toName => switch (this) {
-        Category.all => 'All',
-        Category.entertainment => 'Entertainment',
-        Category.food => 'Food',
-        Category.grocery => 'Grocery',
-        Category.work => 'Work',
-        Category.traveling => 'Traveling',
-        Category.other => 'Other',
+        Category.all => 'सबै',
+        Category.entertainment => 'मनोरञ्जन',
+        Category.food => 'खाना',
+        Category.grocery => 'किराना',
+        Category.traveling => 'यात्रा',
+        Category.other => 'अन्य',
       };
 
   bool apply(Expense? expense) => switch (this) {
@@ -29,7 +27,6 @@ extension CategoryX on Category {
         Category.entertainment => expense?.category == Category.entertainment,
         Category.food => expense?.category == Category.food,
         Category.grocery => expense?.category == Category.grocery,
-        Category.work => expense?.category == Category.work,
         Category.traveling => expense?.category == Category.traveling,
         Category.other => expense?.category == Category.other,
       };

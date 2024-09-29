@@ -13,10 +13,15 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'खर्च एप',
-          style: TextStyle(fontSize: 30),
+          'हिसाब किताब',
+          style: TextStyle(fontSize: 20),
         ),
         centerTitle: true,
+        leading: const Padding(
+          padding: EdgeInsets.all(10.0),
+          child: CircleAvatar(),
+        ),
+        actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.menu))],
       ),
       body: const SingleChildScrollView(
         child: Column(

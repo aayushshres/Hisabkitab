@@ -51,7 +51,7 @@ class AddButtonWidget extends StatelessWidget {
               context.read<ExpenseFormBloc>().add(const ExpenseSubmitted());
               Navigator.pop(context);
             },
-      child: isLoading ? const LoadingWidget() : const Text('खर्च थप्नुहोस्'),
+      child: isLoading ? const LoadingWidget() : const Text('खर्च जोड्नुहोस्'),
     );
   }
 }
@@ -115,7 +115,7 @@ class AmountFieldWidget extends StatelessWidget {
     return TextFormFieldWidget(
       label: 'रकम',
       hint: '0.00',
-      prefixText: 'रु',
+      prefixText: 'रु ',
       enabled: !state.status.isLoading,
       initialValue: state.initialExpense?.amount.toString(),
       onChanged: (value) {
