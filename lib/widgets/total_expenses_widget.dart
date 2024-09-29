@@ -61,13 +61,18 @@ class TotalExpensesWidget extends StatelessWidget {
     final totalExpensesInNepali = convertToNepaliNumerals(state.totalExpenses);
     final graphData = _prepareGraphData(state);
 
+    final screenWidth = MediaQuery.of(context).size.width;
+
+    final totalExpensesWidth = screenWidth * 0.50;
+    final graphWidth = screenWidth * 0.35;
+
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Container(
           padding: const EdgeInsets.all(10),
-          width: 200,
+          width: totalExpensesWidth,
           height: 85,
           decoration: BoxDecoration(
             color: AppTheme.colorScheme.surfaceContainerHighest,
@@ -88,9 +93,12 @@ class TotalExpensesWidget extends StatelessWidget {
             ],
           ),
         ),
+        const SizedBox(
+          width: 10,
+        ),
         Container(
           padding: const EdgeInsets.all(10),
-          width: 160,
+          width: graphWidth,
           height: 85,
           decoration: BoxDecoration(
             color: AppTheme.colorScheme.surfaceContainerHighest,
