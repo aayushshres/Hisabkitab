@@ -1,3 +1,3 @@
-# Kharcha App
+# Hisabkitab
 
 Simple expense tracker.
