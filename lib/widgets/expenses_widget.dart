@@ -9,26 +9,46 @@ class ExpensesWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+    final textTheme = theme.textTheme;
     return BlocBuilder<ExpenseListBloc, ExpenseListState>(
       builder: (context, state) {
         if (state.status == ExpenseListStatus.loading) {
           return const LoadingWidget(radius: 12, addPadding: true);
         }
 
-        final expenses = state.filteredExpenses.toList();
-        if (expenses.isEmpty) {
+        final groupedExpenses =
+            state.expensesByWeek; // Get grouped expenses by week
+
+        if (groupedExpenses.isEmpty) {
           return const EmptyListWidget();
         }
 
-        return ListView.separated(
+        return ListView.builder(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
-          primary: false,
-          separatorBuilder: (context, index) => const SizedBox(height: 10),
-          itemCount: expenses.length,
-          itemBuilder: (context, index) => ExpenseTileWidget(
-            expense: expenses[index]!,
-          ),
+          itemCount: groupedExpenses.length,
+          itemBuilder: (context, index) {
+            final weekKey = groupedExpenses.keys.elementAt(index);
+            final expenses = groupedExpenses[weekKey]!;
+
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  weekKey, // Display the week in Nepali
+                  style: textTheme.bodyMedium?.copyWith(
+                    color: colorScheme.onSurface.withOpacity(0.4),
+                    fontSize: 18,
+                  ),
+                ),
+                ...expenses
+                    .map((expense) => ExpenseTileWidget(expense: expense))
+                    .toList(),
+              ],
+            );
+          },
         );
       },
     );
@@ -36,9 +56,7 @@ class ExpensesWidget extends StatelessWidget {
 }
 
 class EmptyListWidget extends StatelessWidget {
-  const EmptyListWidget({
-    super.key,
-  });
+  const EmptyListWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

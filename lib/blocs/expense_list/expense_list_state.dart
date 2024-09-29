@@ -8,12 +8,14 @@ final class ExpenseListState extends Equatable {
     this.status = ExpenseListStatus.initial,
     this.totalExpenses = 0.0,
     this.filter = Category.all,
+    this.expensesByWeek = const {},
   });
 
   final List<Expense?> expenses;
   final ExpenseListStatus status;
   final double totalExpenses;
   final Category filter;
+  final Map<String, List<Expense>> expensesByWeek;
 
   Iterable<Expense?> get filteredExpenses => filter.applyAll(expenses);
 
@@ -22,6 +24,7 @@ final class ExpenseListState extends Equatable {
     ExpenseListStatus Function()? status,
     double Function()? totalExpenses,
     Category Function()? filter,
+    Map<String, List<Expense>> Function()? expensesByWeek,
   }) {
     return ExpenseListState(
       expenses: expenses != null ? expenses() : this.expenses,
@@ -29,13 +32,12 @@ final class ExpenseListState extends Equatable {
       totalExpenses:
           totalExpenses != null ? totalExpenses() : this.totalExpenses,
       filter: filter != null ? filter() : this.filter,
+      expensesByWeek:
+          expensesByWeek != null ? expensesByWeek() : this.expensesByWeek,
     );
   }
 
-  factory ExpenseListState.initial() {
-    return const ExpenseListState();
-  }
-
   @override
-  List<Object?> get props => [expenses, status, totalExpenses, filter];
+  List<Object?> get props =>
+      [expenses, status, totalExpenses, filter, expensesByWeek];
 }

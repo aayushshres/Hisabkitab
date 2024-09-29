@@ -26,7 +26,10 @@ class HomePage extends StatelessWidget {
             SizedBox(height: 14),
             ExpenseFilterWidget(),
             SizedBox(height: 14),
-            ExpensesWidget(),
+            Padding(
+              padding: EdgeInsets.all(10.0),
+              child: ExpensesWidget(),
+            ),
           ],
         ),
       ),
