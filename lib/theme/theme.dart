@@ -19,11 +19,9 @@ class AppTheme {
     onError: Color(0xff690005),
     errorContainer: Color(0xff93000a),
     onErrorContainer: Color(0xffffb4ab),
-    background: Color(0xff0b0c0b),
-    onBackground: Color(0xffffffff),
     surface: Color(0xff090a09),
     onSurface: Color(0xffffffff),
-    surfaceVariant: Color(0xff2d2f2d),
+    surfaceContainerHighest: Color(0xff2d2f2d),
     onSurfaceVariant: Color(0xffffffff),
     outline: Color(0xff8c8c8c),
     outlineVariant: Color(0xff404040),
@@ -39,7 +37,7 @@ class AppTheme {
     return ThemeData(
       colorScheme: colorScheme,
       listTileTheme: ListTileThemeData(
-        tileColor: colorScheme.surfaceVariant.withOpacity(0.2),
+        tileColor: colorScheme.surfaceContainerHighest.withOpacity(0.2),
       ),
       chipTheme: ChipThemeData(
         labelPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 0),

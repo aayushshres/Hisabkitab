@@ -14,16 +14,12 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         title: const Text(
           'हिसाब किताब',
-          style: TextStyle(fontSize: 20),
-        ),
-        centerTitle: true,
-        leading: const Padding(
-          padding: EdgeInsets.all(10.0),
-          child: CircleAvatar(),
+          style: TextStyle(fontSize: 22),
         ),
         actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.menu))],
       ),
       body: const SingleChildScrollView(
+        padding: EdgeInsets.all(20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
@@ -31,10 +27,7 @@ class HomePage extends StatelessWidget {
             SizedBox(height: 14),
             ExpenseFilterWidget(),
             SizedBox(height: 14),
-            Padding(
-              padding: EdgeInsets.all(10.0),
-              child: ExpensesWidget(),
-            ),
+            ExpensesWidget(),
           ],
         ),
       ),

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:kharcha_app/theme/theme.dart';
 
 import '../blocs/expense_form/expense_form_bloc.dart';
 import '../models/category.dart';
 import 'loading_widget.dart';
-import 'text_form_field_widget.dart';
 
 class AddExpenseSheetWidget extends StatelessWidget {
   const AddExpenseSheetWidget({super.key});
@@ -19,14 +19,14 @@ class AddExpenseSheetWidget extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            TitleFieldWidget(),
+            CategoryChoicesWidget(),
             SizedBox(height: 16),
-            AmountFieldWidget(),
+            NameField(),
+            SizedBox(height: 16),
+            AmountField(),
             SizedBox(height: 16),
             DateFieldWidget(),
-            SizedBox(height: 24),
-            CategoryChoicesWidget(),
-            SizedBox(height: 30),
+            SizedBox(height: 16),
             AddButtonWidget(),
             SizedBox(height: 30),
           ],
@@ -62,7 +62,6 @@ class DateFieldWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final colorScheme = theme.colorScheme;
     final textTheme = theme.textTheme;
 
     final bloc = context.read<ExpenseFormBloc>();
@@ -85,48 +84,54 @@ class DateFieldWidget extends StatelessWidget {
           bloc.add(ExpenseDateChanged(selectedDate));
         }
       },
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(
-            'तारीख',
-            style: textTheme.labelLarge?.copyWith(
-              color: colorScheme.onSurface.withOpacity(0.4),
-              height: 1,
-              fontWeight: FontWeight.w400,
-            ),
-          ),
-          const SizedBox(height: 10),
-          Text('  $formattedDate', style: textTheme.titleLarge),
-        ],
+      child: Container(
+        padding: const EdgeInsets.all(20),
+        decoration: BoxDecoration(
+          color: AppTheme.colorScheme.primaryContainer,
+          borderRadius: BorderRadius.circular(4),
+        ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Icon(Icons.calendar_month),
+            Text('   $formattedDate', style: textTheme.titleMedium),
+          ],
+        ),
       ),
     );
   }
 }
 
-class AmountFieldWidget extends StatelessWidget {
-  const AmountFieldWidget({super.key});
+class AmountField extends StatelessWidget {
+  const AmountField({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
     final state = context.watch<ExpenseFormBloc>().state;
 
-    return TextFormFieldWidget(
-      label: 'रकम',
-      hint: '0.00',
-      prefixText: 'रु ',
-      enabled: !state.status.isLoading,
-      initialValue: state.initialExpense?.amount.toString(),
+    return TextFormField(
+      style: textTheme.displaySmall?.copyWith(fontSize: 30),
       onChanged: (value) {
         context.read<ExpenseFormBloc>().add(ExpenseAmountChanged(value));
       },
+      initialValue: state.initialExpense?.amount.toString(),
+      keyboardType: TextInputType.number,
+      decoration: InputDecoration(
+          enabled: !state.status.isLoading,
+          border: const OutlineInputBorder(),
+          hintText: 'रु',
+          hintStyle: TextStyle(
+            color: AppTheme.colorScheme.primary.withOpacity(0.1),
+          ),
+          labelText: 'रकम लेख्नुहोस्'),
     );
   }
 }
 
-class TitleFieldWidget extends StatelessWidget {
-  const TitleFieldWidget({super.key});
+class NameField extends StatelessWidget {
+  const NameField({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -141,7 +146,8 @@ class TitleFieldWidget extends StatelessWidget {
       initialValue: state.initialExpense?.title,
       decoration: InputDecoration(
         enabled: !state.status.isLoading,
-        labelText: 'तल खर्चको नाम लेख्नुहोस्',
+        border: const OutlineInputBorder(),
+        labelText: 'खर्चको नाम लेख्नुहोस्',
       ),
     );
   }
@@ -152,10 +158,6 @@ class CategoryChoicesWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final colorScheme = theme.colorScheme;
-    final textTheme = theme.textTheme;
-
     final bloc = context.read<ExpenseFormBloc>();
     final state = context.watch<ExpenseFormBloc>().state;
 
@@ -163,17 +165,8 @@ class CategoryChoicesWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       mainAxisSize: MainAxisSize.min,
       children: [
-        Text(
-          'श्रेणी छान्नुहोस्',
-          style: textTheme.labelLarge?.copyWith(
-            color: colorScheme.onSurface.withOpacity(0.4),
-            height: 1,
-            fontWeight: FontWeight.w400,
-          ),
-        ),
-        const SizedBox(height: 10),
         Wrap(
-          spacing: 10,
+          spacing: 15,
           runSpacing: 0,
           children: Category.values
               .where((category) => category != Category.all)
