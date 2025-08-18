@@ -51,14 +51,16 @@ class ExpensesWidget extends StatelessWidget {
                     Text(
                       weekKey,
                       style: textTheme.bodyMedium?.copyWith(
-                        color: colorScheme.onSurface.withOpacity(0.4),
+                        color: colorScheme.onSurface
+                            .withAlpha((0.4 * 225).toInt()),
                         fontWeight: FontWeight.normal,
                       ),
                     ),
                     Text(
                       'कुल: ${formatToNepali(weekTotal)}', // Format total in Nepali
                       style: textTheme.bodyMedium?.copyWith(
-                        color: colorScheme.onSurface.withOpacity(0.6),
+                        color: colorScheme.onSurface
+                            .withAlpha((0.6 * 225).toInt()),
                         fontWeight: FontWeight.normal,
                       ),
                     ),

@@ -37,7 +37,8 @@ class AppTheme {
     return ThemeData(
       colorScheme: colorScheme,
       listTileTheme: ListTileThemeData(
-        tileColor: colorScheme.surfaceContainerHighest.withOpacity(0.2),
+        tileColor:
+            colorScheme.surfaceContainerHighest.withAlpha((0.2 * 225).toInt()),
       ),
       chipTheme: ChipThemeData(
         labelPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 0),

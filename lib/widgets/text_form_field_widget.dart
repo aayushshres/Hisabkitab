@@ -37,7 +37,7 @@ class TextFormFieldWidget extends StatelessWidget {
           Text(
             label,
             style: textTheme.labelLarge?.copyWith(
-              color: colorScheme.onSurface.withOpacity(0.4),
+              color: colorScheme.onSurface.withAlpha((0.4 * 225).toInt()),
               height: 1,
               fontWeight: FontWeight.w400,
             ),

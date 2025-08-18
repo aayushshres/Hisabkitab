@@ -80,7 +80,7 @@ class ExpenseTileWidget extends StatelessWidget {
         subtitle: Text(
           formattedDate,
           style: textTheme.bodySmall?.copyWith(
-            color: colorScheme.onSurface.withOpacity(0.5),
+            color: colorScheme.onSurface.withAlpha((0.5 * 225).toInt()),
           ),
         ),
         trailing: Text(
@@ -100,9 +100,9 @@ class ExpenseTileWidget extends StatelessWidget {
       case Category.food:
         return Icons.restaurant;
       case Category.entertainment:
-        return Icons.movie;
+        return Icons.attractions;
       case Category.traveling:
-        return Icons.flight;
+        return Icons.directions_car;
       case Category.other:
         return Icons.category;
       default:

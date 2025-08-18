@@ -85,7 +85,7 @@ class TotalExpensesWidget extends StatelessWidget {
               Text(
                 'कुल खर्च',
                 style: textTheme.bodyMedium?.copyWith(
-                  color: colorScheme.onSurface.withOpacity(0.8),
+                  color: colorScheme.onSurface.withAlpha((0.8 * 225).toInt()),
                   fontSize: 10,
                 ),
               ),
@@ -112,7 +112,7 @@ class TotalExpensesWidget extends StatelessWidget {
                 child: Text(
                   'खर्च ग्राफ',
                   style: textTheme.bodyMedium?.copyWith(
-                    color: colorScheme.onSurface.withOpacity(0.8),
+                    color: colorScheme.onSurface.withAlpha((0.8 * 225).toInt()),
                     fontSize: 10,
                   ),
                 ),
@@ -139,7 +139,8 @@ class TotalExpensesWidget extends StatelessWidget {
                         dotData: const FlDotData(show: false),
                         belowBarData: BarAreaData(
                           show: true,
-                          color: AppTheme.colorScheme.primary.withOpacity(0.1),
+                          color: AppTheme.colorScheme.primary
+                              .withAlpha((0.1 * 225).toInt()),
                         ),
                       ),
                     ],

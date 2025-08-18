@@ -123,7 +123,7 @@ class AmountField extends StatelessWidget {
           border: const OutlineInputBorder(),
           hintText: 'रु',
           hintStyle: TextStyle(
-            color: AppTheme.colorScheme.primary.withOpacity(0.1),
+            color: AppTheme.colorScheme.primary.withAlpha((0.1 * 225).toInt()),
           ),
           labelText: 'रकम लेख्नुहोस्'),
     );
